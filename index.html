@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RoleIQ – KI-gestützte Führungskräfte-Auswahl</title>
-  <meta name="description" content="RoleIQ ersetzt teure, inkonsistente Rollenspiel-Schauspieler im Assessment Center durch KI-Avatare – fair, skalierbar, vergleichbar." />
+  <title>RoleIQ: KI-gestützte Führungskräfte-Auswahl</title>
+  <meta name="description" content="RoleIQ ersetzt teure, inkonsistente Rollenspiel-Schauspieler im Assessment Center durch KI-Avatare. Fair, skalierbar, vergleichbar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -36,7 +36,7 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -70,7 +70,7 @@
     .btn-ghost:hover { border-color: var(--blue); color: var(--white); }
     .btn-lg { padding: 0.85rem 2rem; font-size: 1rem; border-radius: 10px; }
 
-    /* ── HERO ── */
+    /* HERO */
     #hero {
       min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
@@ -121,7 +121,7 @@
     .stat-num span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
 
-    /* ── SECTION COMMONS ── */
+    /* SECTION COMMONS */
     section { padding: 6rem 2rem; }
     .container { max-width: 1100px; margin: 0 auto; }
     .section-tag {
@@ -136,7 +136,7 @@
     }
     .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin-bottom: 3.5rem; }
 
-    /* ── PROBLEM ── */
+    /* PROBLEM */
     #problem { background: var(--navy2); }
     .problem-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -154,7 +154,7 @@
       letter-spacing: -1px; margin-bottom: .4rem;
     }
 
-    /* ── HOW IT WORKS ── */
+    /* HOW IT WORKS */
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-top: 3rem; }
     .step {
       background: var(--card); border: 1px solid var(--border);
@@ -173,9 +173,15 @@
     .step h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: .5rem; }
     .step p { font-size: .88rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── BENEFITS ── */
+    /* BENEFITS */
     #benefits { background: var(--navy2); }
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
     .benefit-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 16px; padding: 1.8rem;
@@ -191,7 +197,7 @@
     .benefit-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: .4rem; }
     .benefit-card p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
 
-    /* ── USE CASES ── */
+    /* USE CASES */
     .usecases { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     .usecase {
       border: 1px solid var(--border);
@@ -209,7 +215,7 @@
     .usecase h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .5rem; }
     .usecase p  { font-size: .88rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── COMPARISON ── */
+    /* COMPARISON */
     #compare { background: var(--navy2); }
     .compare-table {
       width: 100%; border-collapse: collapse; margin-top: 2rem;
@@ -232,7 +238,7 @@
     .cross { color: #F87171; }
     .compare-table tr:hover td { background: rgba(255,255,255,.02); }
 
-    /* ── TEAM ── */
+    /* TEAM */
     .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; max-width: 700px; }
     .team-card {
       background: var(--card); border: 1px solid var(--border);
@@ -255,7 +261,7 @@
     .team-role { font-size: .85rem; color: #60A5FA; font-weight: 600; margin-bottom: .5rem; }
     .team-bio { font-size: .83rem; color: var(--muted); line-height: 1.6; }
 
-    /* ── BOOKING ── */
+    /* BOOKING */
     #booking { background: var(--navy2); }
     .booking-inner {
       background: var(--card); border: 1px solid var(--border);
@@ -275,7 +281,7 @@
       min-height: 500px;
     }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
       background: var(--navy); border-top: 1px solid var(--border);
       padding: 3rem 2rem;
@@ -287,7 +293,7 @@
     footer p { font-size: .82rem; color: var(--muted); }
     .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 640px) {
       nav { padding: .8rem 1.2rem; }
       .nav-links { display: none; }
@@ -295,7 +301,7 @@
       .hero-stats { gap: 1.5rem; }
     }
 
-    /* ── SCROLL ANIMATIONS ── */
+    /* SCROLL ANIMATIONS */
     .fade-in {
       opacity: 0; transform: translateY(24px);
       transition: opacity .6s ease, transform .6s ease;
@@ -330,8 +336,8 @@
       <span class="grad">ohne Schauspieler.</span>
     </h1>
     <p class="hero-sub">
-      RoleIQ ersetzt teure, inkonsistente Rollenspiel-Schauspieler durch KI-Avatare –
-      fair für jeden Kandidaten, skalierbar für jede Organisation.
+      RoleIQ ersetzt teure, inkonsistente Rollenspiel-Schauspieler durch KI-Avatare.
+      Fair für jeden Kandidaten, skalierbar für jede Organisation.
     </p>
     <div class="hero-ctas">
       <a href="#booking" class="btn btn-lg">Demo buchen →</a>
@@ -358,20 +364,20 @@
 <section id="problem">
   <div class="container">
     <div class="section-tag">Das Problem</div>
-    <h2>Führungskräfte-Auswahl<br/>ist gebrochen.</h2>
+    <h2>Teuer, verzerrt<br/>und kaum vergleichbar.</h2>
     <p class="section-sub">
-      Der Status Quo kostet Unternehmen Unsummen – und liefert trotzdem keine vergleichbaren Ergebnisse.
+      Der Status Quo kostet Unternehmen Unsummen und liefert trotzdem keine vergleichbaren Ergebnisse.
     </p>
     <div class="problem-grid">
       <div class="problem-card fade-in">
-        <div class="big-num">€ 1–3k</div>
+        <div class="big-num">1.000–3.000 €</div>
         <h3>Pro Kandidat im Assessment Center</h3>
-        <p>Ein professionell durchgeführtes AC mit externen Schauspielern kostet Unternehmen zwischen 1.000 und 3.000 € <em>pro Person</em>. Bei mehreren Kandidaten summiert sich das schnell in den fünfstelligen Bereich.</p>
+        <p>Ein professionell durchgeführtes AC mit externen Schauspielern kostet Unternehmen zwischen 1.000 und 3.000 € pro Person. Bei mehreren Kandidaten summiert sich das schnell in den fünfstelligen Bereich.</p>
       </div>
       <div class="problem-card fade-in" style="transition-delay:.1s">
         <div class="problem-icon">🎭</div>
-        <h3>Schauspieler sind teuer – und biased</h3>
-        <p>Professionelle Rollenspiel-Schauspieler rufen Tagessätze von 800–1.500 € auf. Werden interne HR-Mitarbeiter eingesetzt, kennen sie die Bewerbung, haben einen schlechten Tag – und sind schlicht Menschen.</p>
+        <h3>Schauspieler sind teuer und befangen</h3>
+        <p>Professionelle Rollenspiel-Schauspieler rufen Tagessätze von 800 bis 1.500 € auf. Werden interne HR-Mitarbeiter eingesetzt, kennen sie die Bewerbung, haben einen schlechten Tag und sind schlicht Menschen.</p>
       </div>
       <div class="problem-card fade-in" style="transition-delay:.2s">
         <div class="problem-icon">⚖️</div>
@@ -388,23 +394,23 @@
     <div class="section-tag">So funktioniert RoleIQ</div>
     <h2>Drei Schritte zum<br/>fairen Assessment.</h2>
     <p class="section-sub">
-      Kein Setup, keine Logistik. Kandidaten üben von überall – HR bekommt eine strukturierte Auswertung.
+      Kein Setup, keine Logistik. Kandidaten üben von überall, HR bekommt eine strukturierte Auswertung.
     </p>
     <div class="steps">
       <div class="step fade-in">
         <div class="step-num">1</div>
         <h3>Szenario auswählen</h3>
-        <p>HR wählt ein passendes Führungs-Szenario aus der Bibliothek – oder integriert das unternehmensspezifische Kompetenzsystem. Der Kandidat erhält einen Link.</p>
+        <p>HR wählt ein passendes Führungs-Szenario aus der Bibliothek oder integriert das unternehmensspezifische Kompetenzsystem. Der Kandidat erhält einen Link.</p>
       </div>
       <div class="step fade-in" style="transition-delay:.1s">
         <div class="step-num">2</div>
         <h3>Gespräch mit dem KI-Avatar</h3>
-        <p>Der Kandidat führt ein 15–30 Minuten langes Gespräch mit einem KI-Avatar via Browser – von zu Hause, im AC-Raum oder remote. Der Avatar reagiert adaptiv auf den Gesprächsverlauf.</p>
+        <p>Der Kandidat führt ein 15 bis 30 Minuten langes Gespräch mit einem KI-Avatar via Browser, von zu Hause, im AC-Raum oder remote. Der Avatar reagiert adaptiv auf den Gesprächsverlauf.</p>
       </div>
       <div class="step fade-in" style="transition-delay:.2s">
         <div class="step-num">3</div>
         <h3>Strukturierter Report für HR</h3>
-        <p>Das System erstellt automatisch ein Transkript und eine Kompetenzbewertung entlang definierter Verhaltensanker. HR bekommt einen klaren, nachvollziehbaren Report – nicht nur ein Bauchgefühl.</p>
+        <p>Das System erstellt automatisch ein Transkript und eine Kompetenzbewertung entlang definierter Verhaltensanker. HR bekommt einen klaren, nachvollziehbaren Report, kein reines Bauchgefühl.</p>
       </div>
     </div>
   </div>
@@ -419,22 +425,22 @@
       <div class="benefit-card fade-in">
         <div class="benefit-icon">⚖️</div>
         <h3>Maximale Vergleichbarkeit</h3>
-        <p>Jeder Kandidat trifft auf identische Ausgangsbedingungen – unabhängig von Tagesform, Region oder wer gerade das Gespräch führt.</p>
+        <p>Jeder Kandidat trifft auf identische Ausgangsbedingungen, unabhängig von Tagesform, Region oder Gesprächsführung.</p>
       </div>
       <div class="benefit-card fade-in" style="transition-delay:.1s">
         <div class="benefit-icon">📈</div>
-        <h3>Skalierbar & kostengünstig</h3>
+        <h3>Skalierbar &amp; kostengünstig</h3>
         <p>Von 10 auf 1.000 Kandidaten ohne zusätzliche Logistik. Keine Reisekosten, keine Schauspieler-Honorare, kein Termindruck.</p>
       </div>
       <div class="benefit-card fade-in" style="transition-delay:.2s">
         <div class="benefit-icon">🌍</div>
         <h3>Regional unabhängig</h3>
-        <p>Pre-Screening von überall. Kandidaten aus München, Berlin oder dem Ausland durchlaufen exakt dasselbe Assessment – ortsunabhängig, browserbasiert.</p>
+        <p>Pre-Screening von überall. Kandidaten aus München, Berlin oder dem Ausland durchlaufen exakt dasselbe Assessment, ortsunabhängig und browserbasiert.</p>
       </div>
       <div class="benefit-card fade-in" style="transition-delay:.3s">
         <div class="benefit-icon">🔒</div>
         <h3>Nicht zu trainieren</h3>
-        <p>Da die KI nicht-deterministisch ist, gibt es keine "optimale" Musterlösung zum Auswendiglernen. Coaching-Effekte, die das Ergebnis verzerren, werden strukturell verhindert.</p>
+        <p>Da die KI nicht-deterministisch ist, gibt es keine optimale Musterlösung zum Auswendiglernen. Coaching-Effekte, die das Ergebnis verzerren, werden strukturell verhindert.</p>
       </div>
       <div class="benefit-card fade-in" style="transition-delay:.4s">
         <div class="benefit-icon">📋</div>
@@ -444,7 +450,7 @@
       <div class="benefit-card fade-in" style="transition-delay:.5s">
         <div class="benefit-icon">✅</div>
         <h3>Rechtssicher (EU AI Act)</h3>
-        <p>Die finale Entscheidung bleibt beim Menschen. RoleIQ ist als Entscheidungshilfe konzipiert – vollständig konform mit DSGVO Art. 22 und dem EU AI Act.</p>
+        <p>Die finale Entscheidung bleibt beim Menschen. RoleIQ ist als Entscheidungshilfe konzipiert, vollständig konform mit DSGVO Art. 22 und dem EU AI Act.</p>
       </div>
     </div>
   </div>
@@ -454,7 +460,7 @@
 <section id="usecases">
   <div class="container">
     <div class="section-tag">Einsatzszenarien</div>
-    <h2>Flexibel einsetzbar –<br/>in jeder Stufe des Prozesses.</h2>
+    <h2>Flexibel einsetzbar<br/>in jeder Stufe des Prozesses.</h2>
     <p class="section-sub">
       RoleIQ passt sich dem Prozess an, nicht umgekehrt.
     </p>
@@ -462,17 +468,17 @@
       <div class="usecase fade-in">
         <span class="usecase-tag tag-pre">Pre-Screening</span>
         <h3>Vor dem Assessment Center</h3>
-        <p>Kandidaten durchlaufen das KI-Rollenspiel digital von zu Hause. HR bekommt vor dem AC-Tag bereits eine strukturierte Einschätzung der Führungskompetenz – und kann die Auswahl gezielter treffen.</p>
+        <p>Kandidaten durchlaufen das KI-Rollenspiel digital von zu Hause. HR bekommt vor dem AC-Tag bereits eine strukturierte Einschätzung der Führungskompetenz und kann die Auswahl gezielter treffen.</p>
       </div>
       <div class="usecase fade-in" style="transition-delay:.1s">
         <span class="usecase-tag tag-ac">Assessment Center</span>
         <h3>Im AC als Mockup-Videocall</h3>
-        <p>Direkt integriert in den AC-Tag: Der Kandidat sitzt vor einem Laptop und führt das Rollenspiel als simulierten Videocall. Kein Schauspieler nötig – das Ergebnis ist trotzdem belastbar.</p>
+        <p>Direkt integriert in den AC-Tag: Der Kandidat sitzt vor einem Laptop und führt das Rollenspiel als simulierten Videocall. Kein Schauspieler nötig, das Ergebnis ist trotzdem belastbar.</p>
       </div>
       <div class="usecase fade-in" style="transition-delay:.2s">
         <span class="usecase-tag tag-dev">Development</span>
         <h3>Für bestehende Führungskräfte</h3>
-        <p>Nicht nur für Selektion: Eingesetzte Führungskräfte können herausfordernde Gespräche in einem geschützten Rahmen üben und strukturiertes Feedback erhalten – kontinuierlich und ohne Mehraufwand.</p>
+        <p>Nicht nur für Selektion: Eingesetzte Führungskräfte können herausfordernde Gespräche in einem geschützten Rahmen üben und strukturiertes Feedback erhalten, kontinuierlich und ohne Mehraufwand.</p>
       </div>
     </div>
   </div>
@@ -500,7 +506,7 @@
         <tr>
           <td>Kosten pro Kandidat</td>
           <td class="check col-roleiq">✓ Bruchteil der heutigen Kosten</td>
-          <td class="cross">✗ 800–3.000 € / Person</td>
+          <td class="cross">✗ 800 bis 3.000 € pro Person</td>
         </tr>
         <tr>
           <td>Skalierbarkeit</td>
@@ -531,37 +537,37 @@
 <section id="team">
   <div class="container">
     <div class="section-tag">Das Team</div>
-    <h2>Gegründet an der Schnittstelle<br/>von Psychologie & Technologie.</h2>
+    <h2>An der Schnittstelle von<br/>Psychologie &amp; Technologie.</h2>
     <p class="section-sub">
-      RoleIQ entstand im Rahmen des CDTM-Programms (Center for Digital Technology and Management) von TU München und LMU München.
+      Entstanden aus: CDTM · TU München &amp; LMU München
     </p>
     <div class="team-grid">
       <div class="team-card fade-in">
         <img
           src="images/sophia.jpg"
-          alt="Sophia – Co-Founder"
+          alt="Sophia, Co-Founder"
           class="team-photo"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div class="team-photo-placeholder" style="display:none;">👩‍🎓</div>
         <div class="team-info">
           <h3>Sophia</h3>
-          <div class="team-role">Co-Founder · Psychologie & Assessment</div>
+          <div class="team-role">Co-Founder · Psychologie &amp; Assessment</div>
           <p class="team-bio">Masterstudentin Psychologie an der LMU München. Expertise in diagnostischen Verfahren, Assessment Center Design und psychologischer Validität.</p>
         </div>
       </div>
       <div class="team-card fade-in" style="transition-delay:.1s">
         <img
           src="images/max.jpg"
-          alt="Max – Co-Founder"
+          alt="Max, Co-Founder"
           class="team-photo"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div class="team-photo-placeholder" style="display:none;">👨‍💻</div>
         <div class="team-info">
           <h3>Max</h3>
-          <div class="team-role">Co-Founder · Product & Technology</div>
-          <p class="team-bio">Masterstudent Management & Technology an der TUM. Fokus auf KI-Produktentwicklung, Business Models und Go-to-Market in HR-Tech.</p>
+          <div class="team-role">Co-Founder · Product &amp; Technology</div>
+          <p class="team-bio">Bachelorstudent Management &amp; Technology an der TUM. Fokus auf KI-Produktentwicklung, Business Models und Go-to-Market in HR-Tech.</p>
         </div>
       </div>
     </div>
@@ -577,11 +583,11 @@
         <h2>Überzeug dich<br/>selbst.</h2>
         <p>
           Buch dir 30 Minuten mit uns. Wir zeigen dir, wie ein KI-gestütztes
-          Rollenspiel-Assessment in deinem Prozess aussehen könnte – live, mit echtem Szenario.
+          Rollenspiel-Assessment in deinem Prozess aussehen könnte, mit echtem Szenario.
         </p>
         <div class="booking-bullet">
           <span class="icon">✓</span>
-          <span>Live-Demo mit KI-Avatar und Feedback-Report</span>
+          <span>Demo mit KI-Avatar und Feedback-Report</span>
         </div>
         <div class="booking-bullet">
           <span class="icon">✓</span>
@@ -593,7 +599,7 @@
         </div>
         <div class="booking-bullet">
           <span class="icon">✓</span>
-          <span>Unverbindlich – 30 Minuten reichen</span>
+          <span>Unverbindlich, 30 Minuten reichen</span>
         </div>
       </div>
       <div>
@@ -625,12 +631,11 @@
   </div>
   <div class="footer-right">
     <p>© 2026 RoleIQ</p>
-    <p>CDTM · TU München & LMU München</p>
+    <p>Entstanden aus: CDTM · TU München &amp; LMU München</p>
   </div>
 </footer>
 
 <script>
-  // Scroll-triggered fade-in
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); }

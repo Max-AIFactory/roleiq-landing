@@ -121,13 +121,29 @@ body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif
 .pivot-box p{font-size:13.5px;font-weight:300;line-height:1.65;position:relative}
 .pivot-box p strong{font-weight:600}
 
-/* INSIGHT CARDS — 2-col -->
-.insights{max-width:900px;margin:0 auto 3rem;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.insight-card{
-  border-radius:12px;padding:1.4rem;border:1px solid;
+/* INSIGHT SECTION */
+.insights-wrap{max-width:900px;margin:0 auto 3rem;padding:0 2rem}
+.insights-label{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:rgba(245,240,232,.25);margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem;
 }
-.insight-card .ic-icon{font-size:1.5rem;margin-bottom:.6rem}
-.insight-card h4{font-size:13px;font-weight:600;margin-bottom:.35rem}
+.insights-label::before,.insights-label::after{
+  content:'';flex:1;height:1px;background:rgba(255,255,255,.07);
+}
+.insights{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.insight-card{
+  border-radius:12px;padding:1.5rem;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  position:relative;overflow:hidden;
+}
+.insight-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+}
+.insight-card.ins-p::before{background:rgba(167,139,250,.5)}
+.insight-card.ins-y::before{background:rgba(245,166,35,.5)}
+.insight-card .ic-icon{font-size:1.4rem;margin-bottom:.6rem}
+.insight-card h4{font-size:12.5px;font-weight:600;margin-bottom:.4rem}
 .insight-card p{font-size:12.5px;font-weight:300;line-height:1.55;color:var(--muted)}
 
 /* OUTCOME */
@@ -155,6 +171,7 @@ body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif
   .node-card{max-width:100%;margin-left:44px}
   .node-connector{position:absolute;left:0;width:40px}
   .node{position:relative;padding-left:0}
+  .insights-wrap{padding:0 1rem}
   .insights{grid-template-columns:1fr}
   .outcome-grid{grid-template-columns:1fr}
 }
@@ -258,16 +275,19 @@ body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif
 </div>
 
 <!-- INSIGHTS BEFORE PIVOT -->
-<div class="insights">
-  <div class="insight-card" style="border-color:rgba(167,139,250,.2);background:rgba(167,139,250,.05)">
-    <div class="ic-icon">💡</div>
-    <h4 style="color:var(--p)">Erkenntnis 1: Domäne schlägt Technologie</h4>
-    <p>Allgemeine KI-Tools sind Commodities. Entscheidend ist spezifisches Branchen­wissen, das nicht leicht replizierbar ist. Sophias Psychologie-Hintergrund ist ein echter Vorteil, nicht nur ein Nice-to-have.</p>
-  </div>
-  <div class="insight-card" style="border-color:rgba(245,166,35,.2);background:rgba(245,166,35,.05)">
-    <div class="ic-icon">🎯</div>
-    <h4 style="color:var(--y)">Erkenntnis 2: Tiefe vor Breite</h4>
-    <p>Der Versuch, einen breiten Markt anzusprechen (EdTech, HR-Compliance), führt zu generischen Lösungen. Es braucht einen engen, spezifischen Anwendungsfall, der für die Zielgruppe wirklich schmerzt.</p>
+<div class="insights-wrap">
+  <div class="insights-label">Learnings aus Phase 1</div>
+  <div class="insights">
+    <div class="insight-card ins-p">
+      <div class="ic-icon">💡</div>
+      <h4 style="color:var(--p)">Erkenntnis 1: Domäne schlägt Technologie</h4>
+      <p>Allgemeine KI-Tools sind Commodities. Entscheidend ist spezifisches Branchenwissen, das nicht leicht replizierbar ist. Sophias Psychologie-Hintergrund ist ein echter Vorteil, nicht nur ein Nice-to-have.</p>
+    </div>
+    <div class="insight-card ins-y">
+      <div class="ic-icon">🎯</div>
+      <h4 style="color:var(--y)">Erkenntnis 2: Tiefe vor Breite</h4>
+      <p>Der Versuch, einen breiten Markt anzusprechen (EdTech, HR-Compliance), führt zu generischen Lösungen. Es braucht einen engen, spezifischen Anwendungsfall, der für die Zielgruppe wirklich schmerzt.</p>
+    </div>
   </div>
 </div>
 

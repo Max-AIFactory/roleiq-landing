@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RoleIQ – Ideation Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;--navy:#0B1629;--navy2:#111E35;--card:#141F34;
+  --white:#f5f0e8;--muted:rgba(245,240,232,.45);
+  --blue:#2563EB;--teal:#0EA5E9;
+  --grad:linear-gradient(135deg,#2563EB 0%,#0EA5E9 100%);
+  --r:#F87171;--y:#FBBF24;--g:#34D399;--p:#A78BFA;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;padding-top:48px}
+
+/* SUBNAV */
+.subnav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 1.5rem;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.subnav-home{font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;letter-spacing:-.3px}
+.subnav-home span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subnav-links{display:flex;gap:.2rem}
+.subnav-links a{
+  color:rgba(255,255,255,.45);text-decoration:none;font-size:.75rem;font-weight:500;
+  padding:.3rem .65rem;border-radius:5px;transition:all .2s;
+}
+.subnav-links a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.subnav-links a.active{color:#93C5FD;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3)}
+
+/* HERO */
+.hero{
+  padding:6rem 2rem 4rem;max-width:860px;margin:0 auto;text-align:center;
+}
+.hero-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.35);font-weight:600;margin-bottom:1.5rem}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,96px);line-height:.92;letter-spacing:.02em;margin-bottom:.6rem}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:540px;margin:0 auto 3rem}
+
+/* TIMELINE */
+.timeline{max-width:900px;margin:0 auto 6rem;padding:0 2rem;position:relative}
+.timeline::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.1) 5%,rgba(255,255,255,.1) 95%,transparent);
+  transform:translateX(-50%);
+}
+
+.phase{margin-bottom:3rem;position:relative}
+.phase-header{
+  text-align:center;position:relative;z-index:1;margin-bottom:2rem;
+}
+.phase-dot{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;
+  margin:0 auto .75rem;border:2px solid;
+}
+.phase-tag{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;margin-bottom:.3rem}
+.phase-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,26px)}
+
+/* Left/right alternating cards */
+.node{
+  display:flex;margin-bottom:1.5rem;gap:2rem;align-items:flex-start;
+}
+.node.right{flex-direction:row-reverse}
+.node-card{
+  flex:1;max-width:calc(50% - 2rem);
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:1.4rem;
+  transition:border-color .2s;
+}
+.node-card:hover{border-color:rgba(255,255,255,.12)}
+.node-connector{
+  width:4rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  padding-top:.85rem;
+}
+.node-connector .dot{
+  width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,.25);
+  background:var(--black);
+}
+.node-card .nc-icon{font-size:1.4rem;margin-bottom:.5rem}
+.node-card h4{font-size:13px;font-weight:600;color:var(--white);margin-bottom:.35rem}
+.node-card p{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.55}
+
+/* Dead-end badge */
+.dead{border-color:rgba(248,113,113,.25)!important;background:rgba(248,113,113,.04)!important}
+.dead h4{color:var(--r)!important}
+.badge{
+  display:inline-block;padding:.2rem .6rem;border-radius:4px;
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.badge-dead{background:rgba(248,113,113,.12);color:var(--r);border:1px solid rgba(248,113,113,.2)}
+.badge-pivot{background:rgba(245,166,35,.12);color:var(--y);border:1px solid rgba(245,166,35,.25)}
+.badge-break{background:rgba(167,139,250,.12);color:var(--p);border:1px solid rgba(167,139,250,.25)}
+.badge-win{background:rgba(52,211,153,.12);color:var(--g);border:1px solid rgba(52,211,153,.25)}
+
+/* PIVOT MOMENT — full-width callout */
+.pivot-callout{
+  max-width:900px;margin:0 auto 3rem;padding:0 2rem;
+}
+.pivot-box{
+  border-radius:16px;padding:2rem 2.5rem;
+  border:1px solid;position:relative;overflow:hidden;
+}
+.pivot-box::before{
+  content:'';position:absolute;inset:0;opacity:.06;
+  background-size:20px 20px;
+  background-image:linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px);
+}
+.pivot-box .pb-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:.75rem;position:relative}
+.pivot-box h3{font-family:'DM Serif Display',serif;font-size:clamp(18px,2.5vw,24px);margin-bottom:.75rem;position:relative}
+.pivot-box p{font-size:13.5px;font-weight:300;line-height:1.65;position:relative}
+.pivot-box p strong{font-weight:600}
+
+/* INSIGHT CARDS — 2-col -->
+.insights{max-width:900px;margin:0 auto 3rem;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.insight-card{
+  border-radius:12px;padding:1.4rem;border:1px solid;
+}
+.insight-card .ic-icon{font-size:1.5rem;margin-bottom:.6rem}
+.insight-card h4{font-size:13px;font-weight:600;margin-bottom:.35rem}
+.insight-card p{font-size:12.5px;font-weight:300;line-height:1.55;color:var(--muted)}
+
+/* OUTCOME */
+.outcome{max-width:900px;margin:0 auto 6rem;padding:0 2rem}
+.outcome-hero{
+  border-radius:20px;padding:3rem;
+  background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(14,165,233,.05));
+  border:1px solid rgba(37,99,235,.25);text-align:center;
+}
+.outcome-hero .oh-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#60A5FA;font-weight:600;margin-bottom:1rem}
+.outcome-hero h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,7vw,80px);line-height:.92;letter-spacing:.02em;margin-bottom:.5rem}
+.outcome-hero h2 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.outcome-hero .oh-sub{font-family:'DM Serif Display',serif;font-style:italic;font-size:17px;color:var(--muted);margin-bottom:2rem}
+.outcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:left}
+.out-card{
+  background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.15);
+  border-radius:12px;padding:1.2rem;
+}
+.out-card .oc-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#60A5FA;line-height:1;margin-bottom:.25rem}
+.out-card p{font-size:12px;color:rgba(245,240,232,.5);line-height:1.45}
+
+@media(max-width:700px){
+  .timeline::before{left:20px}
+  .node,.node.right{flex-direction:column}
+  .node-card{max-width:100%;margin-left:44px}
+  .node-connector{position:absolute;left:0;width:40px}
+  .node{position:relative;padding-left:0}
+  .insights{grid-template-columns:1fr}
+  .outcome-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="subnav">
+  <a href="/" class="subnav-home">Role<span>IQ</span></a>
+  <div class="subnav-links">
+    <a href="/pull">PULL Framework</a>
+    <a href="/pitch">Pitch</a>
+    <a href="/ideation" class="active">Ideation</a>
+    <a href="/funnel">Funnel</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">CDTM Elective · AI for Business Applications · 2026</div>
+  <h1>Die Idee<br/><span>hinter RoleIQ.</span></h1>
+  <div class="sub">Wie aus drei Brainstorming-Linsen, zwei Sackgassen und einer persönlichen Geschichte eine validierbare Produktidee wurde.</div>
+</div>
+
+<!-- PHASE 1: KICK-OFF -->
+<div class="timeline">
+
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-dot" style="border-color:var(--y);background:rgba(245,166,35,.1);color:var(--y)">1</div>
+      <div class="phase-tag" style="color:var(--y)">Phase 1 · Kick-off</div>
+      <div class="phase-title">Drei Brainstorming-Linsen</div>
+    </div>
+
+    <div class="node">
+      <div class="node-card">
+        <div class="nc-icon">🔭</div>
+        <h4>Die CDTM-Aufgabe</h4>
+        <p>Im Kurs "AI for Business Applications" war die Aufgabe klar: eine KI-Geschäftsidee entwickeln, die einen echten Schmerzpunkt löst. Kein Demo, keine Spielerei. Echtes Problem, echte Nutzer, validierbarer Markt.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+
+    <div class="node right">
+      <div class="node-card">
+        <div class="nc-icon">🏗️</div>
+        <h4>Drei Brainstorming-Linsen</h4>
+        <p>Das Team strukturierte die erste Ideationsrunde entlang von drei Fragen: Welche Branchen sind KI-resistent aber datenreich? Wo gibt es analoge Prozesse, die digital kaum abgedeckt sind? Und wo hat Sophia als Psychologin Einblicke, die andere nicht haben?</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: ERSTE IDEEN -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-dot" style="border-color:var(--r);background:rgba(248,113,113,.1);color:var(--r)">2</div>
+      <div class="phase-tag" style="color:var(--r)">Phase 2 · Erste Ideen</div>
+      <div class="phase-title">Drei Ansätze, zwei Sackgassen</div>
+    </div>
+
+    <div class="node">
+      <div class="node-card dead">
+        <span class="badge badge-dead">Sackgasse</span>
+        <div class="nc-icon">🤖</div>
+        <h4>Robot Data Marketplace</h4>
+        <p>Idee: Synthetische Trainings­daten für physische Roboter marktplatzseitig kuratieren und verkaufen. Industrieroboter-Hersteller zahlen für qualitativ hochwertige labeled Bewegungs­daten. Problem: Die Kunden haben selbst Datenabteilungen, der Einkaufsprozess ist lang, und der Markt braucht Zertifizierungen, die zu teuer sind für eine CDTM-Idee.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+
+    <div class="node right">
+      <div class="node-card dead">
+        <span class="badge badge-dead">Sackgasse</span>
+        <div class="nc-icon">🌿</div>
+        <h4>Vita Branch</h4>
+        <p>Idee: KI-gestützter Karriereberater, der Lebensläufe analysiert, Kompetenzlücken identifiziert und personalisierte Weiterbildungspfade vorschlägt. Problem: Der Markt ist gesättigt (LinkedIn, Coursera, zahllose EdTech-Startups), kein struktureller Vorteil erkennbar. Kein echter Schmerzpunkt, der noch nicht adressiert wird.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+
+    <div class="node">
+      <div class="node-card">
+        <span class="badge badge-pivot">Interessant, aber...</span>
+        <div class="nc-icon">🤧</div>
+        <h4>AI-llergy</h4>
+        <p>Idee: Automatisierte Erkennung von KI-generierten Texten in Bewerbungsunterlagen, plus Flagging-Tool für HR-Teams. Interessantes Problem, valider Schmerzpunkt in HR. Aber: Technologisch kaum verteidigbar, Gegner lernen schnell, und der Nutzen ist defensiv, nicht transformativ.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PIVOT CALLOUT -->
+<div class="pivot-callout">
+  <div class="pivot-box" style="border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.04)">
+    <div class="pb-label" style="color:var(--p)">Wendepunkt · Kurs-Feedback</div>
+    <h3 style="color:var(--white)">Kursfeedback, das alles änderte.</h3>
+    <p style="color:var(--muted)">Das Kurs-Feedback auf die ersten Ideen war ehrlich: <strong style="color:var(--white)">keine der drei Ideen hat einen wirklich verteidigbaren Vorteil.</strong> Entweder zu teuer im Einstieg (Robot Data), zu gesättigt (Vita Branch), oder technologisch zu leicht zu replizieren (AI-llergy). Das Team entschloss sich zum vollständigen Neustart, ohne sich an die bisherigen Richtungen zu klammern.</p>
+  </div>
+</div>
+
+<!-- INSIGHTS BEFORE PIVOT -->
+<div class="insights">
+  <div class="insight-card" style="border-color:rgba(167,139,250,.2);background:rgba(167,139,250,.05)">
+    <div class="ic-icon">💡</div>
+    <h4 style="color:var(--p)">Erkenntnis 1: Domäne schlägt Technologie</h4>
+    <p>Allgemeine KI-Tools sind Commodities. Entscheidend ist spezifisches Branchen­wissen, das nicht leicht replizierbar ist. Sophias Psychologie-Hintergrund ist ein echter Vorteil, nicht nur ein Nice-to-have.</p>
+  </div>
+  <div class="insight-card" style="border-color:rgba(245,166,35,.2);background:rgba(245,166,35,.05)">
+    <div class="ic-icon">🎯</div>
+    <h4 style="color:var(--y)">Erkenntnis 2: Tiefe vor Breite</h4>
+    <p>Der Versuch, einen breiten Markt anzusprechen (EdTech, HR-Compliance), führt zu generischen Lösungen. Es braucht einen engen, spezifischen Anwendungsfall, der für die Zielgruppe wirklich schmerzt.</p>
+  </div>
+</div>
+
+<!-- PHASE 3: NEUSTART -->
+<div class="timeline">
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-dot" style="border-color:var(--g);background:rgba(52,211,153,.1);color:var(--g)">3</div>
+      <div class="phase-tag" style="color:var(--g)">Phase 3 · Neustart</div>
+      <div class="phase-title">Die Frage, die alles veränderte</div>
+    </div>
+
+    <div class="node">
+      <div class="node-card">
+        <div class="nc-icon">🧠</div>
+        <h4>Die entscheidende Frage</h4>
+        <p>Das Team fragte sich neu: In welchem echten Kontext hat Sophia etwas gesehen, das objektiv kaputt ist, und für das niemand eine gute Lösung hat? Nicht was wäre denkbar, sondern: Was haben wir persönlich erlebt?</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+
+    <div class="node right">
+      <div class="node-card">
+        <span class="badge badge-win">Durchbruch</span>
+        <div class="nc-icon">👩‍💼</div>
+        <h4>Sophias erste Stelle</h4>
+        <p>Sophia hatte in einem früheren Job direkten Einblick in Assessment Center-Prozesse: Schauspieler mit schlechten Tagen, interne HR-Mitarbeiter, die die Kandidaten kennen, Rollenspielergebnisse die kaum vergleichbar sind. Das Problem war nicht abstrakt. Es war erlebt, konkret und bis heute ungelöst.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+
+    <div class="node">
+      <div class="node-card">
+        <div class="nc-icon">🔄</div>
+        <h4>Die Inversion</h4>
+        <p>Der entscheidende Gedanke: Was, wenn man nicht den Kandidaten trainiert (wie viele bestehende Tools), sondern das Rollenspiel-Setting selbst standardisiert und digitalisiert? KI nicht als Bewerbercoach, sondern als Gesprächspartner, der für HR bewertet. Der Blickwinkel dreht sich vollständig um.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+
+    <div class="node right">
+      <div class="node-card">
+        <div class="nc-icon">📐</div>
+        <h4>RoleIQ nimmt Form an</h4>
+        <p>KI-Avatar übernimmt die Rolle des Schauspielers. Alle Kandidaten erhalten identische Ausgangsbedingungen. HR bekommt einen strukturierten Report mit Kompetenzeinschätzungen statt subjektivem Beobachter-Feedback. Und das System ist nicht-deterministisch, also nicht durch Vorbereitung zu überlisten.</p>
+      </div>
+      <div class="node-connector"><div class="dot"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PIVOT CALLOUT 2 -->
+<div class="pivot-callout">
+  <div class="pivot-box" style="border-color:rgba(52,211,153,.25);background:rgba(52,211,153,.04)">
+    <div class="pb-label" style="color:var(--g)">Marktvalidierung · Was wir dann prüften</div>
+    <h3 style="color:var(--white)">Die Idee hält der Realität stand.</h3>
+    <p style="color:var(--muted)">Assessment Center sind tatsächlich ein €7.2B Markt. <strong style="color:var(--white)">67% der großen Unternehmen</strong> nutzen sie, zahlen durchschnittlich <strong style="color:var(--white)">€2.500 bis €4.000 pro Kandidat</strong> für externe Rollenspiele. Bestehende KI-Anbieter (HireVue, Pymetrics) tracken Persönlichkeit und Sentiment, was regulatorisch zunehmend problematisch wird. <strong style="color:var(--white)">RoleIQ setzt genau hier anders an:</strong> verhaltensbasiert, strukturiert, mit Human-in-the-Loop für die finale Entscheidung.</p>
+  </div>
+</div>
+
+<!-- OUTCOME -->
+<div class="outcome">
+  <div class="outcome-hero">
+    <div class="oh-tag">Ergebnis der Ideation</div>
+    <h2>Von der Idee<br/><span>zu RoleIQ.</span></h2>
+    <div class="oh-sub">Eine Produktidee mit persönlichem Ursprung, validierbarem Markt und strukturellen Vorteilen.</div>
+    <div class="outcome-grid">
+      <div class="out-card">
+        <div class="oc-val">€7.2B</div>
+        <p>Globaler Assessment Center Markt mit starkem Wachstum in Richtung KI-gestützte Diagnostik</p>
+      </div>
+      <div class="out-card">
+        <div class="oc-val">4+</div>
+        <p>Strukturelle Moats: Domänewissen, Non-Determinismus, Compliance-by-Design, Switching Costs</p>
+      </div>
+      <div class="out-card">
+        <div class="oc-val">3</div>
+        <p>Verworte­ne Ideen, bevor RoleIQ gefunden wurde. Geschwindigkeit beim Scheitern ist kein Fehler.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PULL Framework – RoleIQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1629;--navy2:#111E35;--card:#141F34;
+  --blue:#2563EB;--teal:#0EA5E9;
+  --border:rgba(255,255,255,0.07);
+  --muted:#94A3B8;--text:#E2E8F0;--white:#FFFFFF;
+  --grad:linear-gradient(135deg,#2563EB 0%,#0EA5E9 100%);
+  --p-col:#F87171;--u-col:#FBBF24;--l1-col:#34D399;--l2-col:#A78BFA;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* ── SUBNAV ── */
+.subnav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem 2rem;
+  background:rgba(11,22,41,.93);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  gap:1rem;
+}
+.subnav-home{
+  font-weight:800;font-size:1.1rem;color:var(--white);
+  text-decoration:none;letter-spacing:-.3px;white-space:nowrap;
+}
+.subnav-home span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subnav-links{display:flex;gap:.25rem;align-items:center;flex-wrap:wrap}
+.subnav-links a{
+  color:var(--muted);text-decoration:none;font-size:.8rem;font-weight:500;
+  padding:.35rem .75rem;border-radius:6px;transition:all .2s;white-space:nowrap;
+}
+.subnav-links a:hover{color:var(--white);background:rgba(255,255,255,.06)}
+.subnav-links a.active{
+  background:rgba(37,99,235,.15);color:#93C5FD;
+  border:1px solid rgba(37,99,235,.3);
+}
+
+/* ── HERO ── */
+.hero{
+  padding:9rem 2rem 5rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+  width:800px;height:500px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(37,99,235,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-label{
+  display:inline-block;
+  font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#60A5FA;margin-bottom:1.2rem;
+}
+.pull-letters{
+  display:flex;justify-content:center;align-items:baseline;gap:.5rem;
+  margin-bottom:1.5rem;
+}
+.pull-letter{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,12vw,9rem);
+  line-height:1;letter-spacing:.04em;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero h1{
+  font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:300;
+  color:var(--muted);max-width:600px;margin:0 auto 1rem;
+}
+.hero h1 strong{color:var(--white);font-weight:700}
+.hero-intro{
+  font-size:.95rem;color:var(--muted);max-width:640px;margin:0 auto;line-height:1.8;
+}
+.toc{
+  display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:2.5rem;
+}
+.toc-item{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.1rem;border-radius:8px;
+  font-size:.8rem;font-weight:600;
+  text-decoration:none;border:1px solid;transition:opacity .2s;
+}
+.toc-item:hover{opacity:.8}
+.toc-p{border-color:rgba(248,113,113,.3);color:#F87171;background:rgba(248,113,113,.06)}
+.toc-u{border-color:rgba(251,191,36,.3);color:#FBBF24;background:rgba(251,191,36,.06)}
+.toc-l1{border-color:rgba(52,211,153,.3);color:#34D399;background:rgba(52,211,153,.06)}
+.toc-l2{border-color:rgba(167,139,250,.3);color:#A78BFA;background:rgba(167,139,250,.06)}
+
+/* ── SECTION ── */
+.pull-section{padding:5rem 2rem;position:relative;overflow:hidden}
+.pull-section:nth-child(even){background:var(--navy2)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-header{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start;margin-bottom:3.5rem}
+.big-letter{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,10vw,8rem);
+  line-height:1;letter-spacing:.04em;
+  opacity:.12;user-select:none;
+}
+.section-meta{}
+.section-tag{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem}
+.section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--white);letter-spacing:-1px;line-height:1.1;margin-bottom:.6rem}
+.section-question{font-size:1rem;color:var(--muted);font-style:italic}
+
+/* verdict badge */
+.verdict{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-radius:100px;
+  font-size:.78rem;font-weight:700;letter-spacing:.5px;
+  margin-top:.75rem;
+}
+.verdict-strong{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:#34D399}
+.verdict-medium{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#FBBF24}
+
+/* evidence blocks */
+.evidence-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:2rem}
+.ev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem}
+.ev-card-header{display:flex;align-items:center;gap:.75rem;margin-bottom:.9rem}
+.ev-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;letter-spacing:.02em}
+.ev-label{font-size:.75rem;color:var(--muted);line-height:1.4}
+.ev-card p{font-size:.88rem;color:var(--muted);line-height:1.65}
+.ev-card p strong{color:var(--text);font-weight:600}
+
+.insight-block{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.6rem 2rem;
+  margin-bottom:1.5rem;
+}
+.insight-block h3{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.6rem}
+.insight-block p{font-size:.9rem;color:var(--muted);line-height:1.7}
+.insight-block p strong{color:var(--text);font-weight:600}
+.insight-block ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.6rem}
+.insight-block ul li{font-size:.88rem;color:var(--muted);line-height:1.6;padding-left:1.2rem;position:relative}
+.insight-block ul li::before{content:'→';position:absolute;left:0;color:var(--blue);font-weight:700;font-size:.75rem;top:.1rem}
+.insight-block ul li strong{color:var(--text);font-weight:600}
+
+.quote-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.8rem 2rem;
+  position:relative;margin-bottom:1.5rem;
+}
+.quote-card::before{
+  content:'"';font-size:4rem;color:var(--blue);opacity:.25;
+  position:absolute;top:.2rem;left:1.2rem;line-height:1;
+  font-family:Georgia,serif;
+}
+.quote-card p{font-size:.95rem;color:var(--text);font-style:italic;line-height:1.7;padding-left:1.5rem}
+.quote-card .source{font-size:.78rem;color:var(--muted);margin-top:.8rem;padding-left:1.5rem;font-style:normal}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}.section-header{grid-template-columns:1fr;gap:1rem}.big-letter{font-size:4rem}}
+
+/* competitor table */
+.comp-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:1rem}
+.comp-table th{
+  padding:.7rem 1rem;text-align:left;
+  border-bottom:1px solid var(--border);
+  color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;
+}
+.comp-table td{padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text)}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:hover td{background:rgba(255,255,255,.02)}
+.tag-yes{color:#34D399;font-weight:700}
+.tag-no{color:#F87171}
+.tag-partial{color:#FBBF24}
+.row-us td{background:rgba(37,99,235,.06)!important}
+.row-us td:first-child{color:#60A5FA;font-weight:700}
+
+/* moat cards */
+.moat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem}
+.moat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.4rem;
+  border-top:3px solid;
+  transition:transform .2s;
+}
+.moat-card:hover{transform:translateY(-3px)}
+.moat-card .mc-icon{font-size:1.6rem;margin-bottom:.75rem}
+.moat-card h4{font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.moat-card p{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* timeline / now-next */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{
+  display:flex;gap:1.5rem;align-items:flex-start;
+  padding:1.2rem 0;border-bottom:1px solid var(--border);
+}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;flex-shrink:0;margin-top:.1rem;
+}
+.tl-content h4{font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.3rem}
+.tl-content p{font-size:.84rem;color:var(--muted);line-height:1.6}
+
+/* summary bar */
+.summary-bar{
+  background:var(--navy2);border-top:1px solid var(--border);
+  padding:4rem 2rem;
+}
+.summary-inner{max-width:1100px;margin:0 auto;text-align:center}
+.summary-inner h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--white);letter-spacing:-1px;margin-bottom:1rem}
+.summary-inner p{color:var(--muted);max-width:600px;margin:0 auto 2rem;line-height:1.8}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:800px;margin:0 auto}
+@media(max-width:600px){.summary-grid{grid-template-columns:repeat(2,1fr)}}
+.summary-pill{
+  border-radius:12px;padding:1.2rem 1rem;text-align:center;
+  border:1px solid;
+}
+.summary-pill .sl{font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:1}
+.summary-pill .sd{font-size:.72rem;color:var(--muted);margin-top:.3rem}
+</style>
+</head>
+<body>
+
+<!-- SUBNAV -->
+<nav class="subnav">
+  <a href="/" class="subnav-home">Role<span>IQ</span></a>
+  <div class="subnav-links">
+    <a href="/pull" class="active">PULL Framework</a>
+    <a href="/pitch">Pitch</a>
+    <a href="/ideation">Ideation</a>
+    <a href="/funnel">Funnel</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Strategische Analyse</div>
+  <div class="pull-letters">
+    <span class="pull-letter">P</span>
+    <span class="pull-letter">U</span>
+    <span class="pull-letter">L</span>
+    <span class="pull-letter">L</span>
+  </div>
+  <h1><strong>Problem. Urgency. Landscape. Leverage.</strong></h1>
+  <p class="hero-intro">
+    Das PULL-Framework analysiert, ob ein Startup-Konzept echten Marktsog erzeugt,
+    statt auf Basis von Annahmen in einen Markt gedrückt zu werden.
+    Hier wenden wir es vollständig auf <strong style="color:var(--white)">RoleIQ</strong> an.
+  </p>
+  <div class="toc">
+    <a href="#problem" class="toc-item toc-p">P &nbsp;Problem Pull</a>
+    <a href="#urgency" class="toc-item toc-u">U &nbsp;Urgency</a>
+    <a href="#landscape" class="toc-item toc-l1">L &nbsp;Landscape</a>
+    <a href="#leverage" class="toc-item toc-l2">L &nbsp;Leverage</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     P — PROBLEM PULL
+════════════════════════════════════════════ -->
+<section class="pull-section" id="problem">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="big-letter" style="color:var(--p-col)">P</div>
+      <div class="section-meta">
+        <div class="section-tag" style="color:var(--p-col)">Problem Pull</div>
+        <div class="section-title">Ist das Problem real, häufig und schmerzhaft genug?</div>
+        <div class="section-question">Zieht das Problem Unternehmen aktiv in Richtung Lösung, oder wird es toleriert?</div>
+        <div class="verdict verdict-strong">✓ Starkes Problem Pull bestätigt</div>
+      </div>
+    </div>
+
+    <!-- evidence numbers -->
+    <div class="evidence-grid">
+      <div class="ev-card">
+        <div class="ev-card-header">
+          <span class="ev-num" style="color:var(--p-col)">€85k</span>
+          <span class="ev-label">Durchschnittskosten<br/>einer Fehlbesetzung<br/>(mittleres Management)</span>
+        </div>
+        <p>Ein falscher Hire auf Führungsebene kostet Unternehmen laut Harvard Business Review <strong>50-200% des Jahresgehalts</strong> der Position. Bei einem Führungskraft-Gehalt von €70-120k summiert sich das schnell. Das schafft massive Zahlungsbereitschaft für Selektionswerkzeuge.</p>
+      </div>
+      <div class="ev-card">
+        <div class="ev-card-header">
+          <span class="ev-num" style="color:var(--p-col)">€3k</span>
+          <span class="ev-label">Kosten pro Kandidat<br/>im externen AC<br/>(Rollenspiel-Schauspieler)</span>
+        </div>
+        <p>Professionelle Schauspieler für Rollenspiele kosten <strong>€800 bis €1.500 Tagessatz</strong> plus Reisekosten. Ein halbtägiges Assessment Center für 6 Kandidaten mit zwei Schauspielern: schnell €5.000 bis €10.000 an reinen Personalkosten.</p>
+      </div>
+      <div class="ev-card">
+        <div class="ev-card-header">
+          <span class="ev-num" style="color:var(--p-col)">67%</span>
+          <span class="ev-label">Unternehmen ab 500 MA<br/>nutzen strukturierte<br/>Assessment Center</span>
+        </div>
+        <p>Führungskräfte-Selektion via AC ist weit verbreitet. Die Marktgröße ist etabliert. <strong>Das Budget existiert bereits</strong>, es fließt nur an teure analoge Anbieter. Das klassische "Replace existing spend"-Modell, kein Marktentwicklungsrisiko.</p>
+      </div>
+    </div>
+
+    <!-- the root problem -->
+    <div class="insight-block">
+      <h3 style="color:var(--p-col)">Das strukturelle Problem</h3>
+      <p>Führungskräfte werden in Assessment Centers vornehmlich auf <strong>Kommunikations- und Führungskompetenz</strong> getestet. Dafür werden Rollenspiele eingesetzt. Diese Rollenspiele haben drei fundamentale Schwächen:</p>
+      <ul>
+        <li><strong>Hohe Kosten:</strong> Professionell ausgebildete Schauspieler sind teuer. Interne HR-Mitarbeiter sind inkonsistent, kennen die Bewerbung und haben gute und schlechte Tage.</li>
+        <li><strong>Fehlende Vergleichbarkeit:</strong> Jeder Kandidat erlebt eine andere Gesprächsdynamik. Inter-Rater-Reliabilität liegt bei klassischen AC-Beobachtern bei κ=0.4 bis 0.6. Statistisch sind das fragwürdige Selektionsentscheidungen.</li>
+        <li><strong>Mangelnde Skalierbarkeit:</strong> Schauspieler sind termingebunden, regional begrenzt und nicht auf 100 Kandidaten gleichzeitig skalierbar. Für Konzerne mit globalen Hiring-Prozessen ist das strukturell gebrochen.</li>
+      </ul>
+    </div>
+
+    <div class="two-col">
+      <div class="insight-block" style="margin-bottom:0">
+        <h3 style="color:var(--p-col)">Ersthand-Validierung</h3>
+        <p>Sophias direkte Erfahrung aus der Beratungspraxis bei FEEDBACKPEOPLE zeigt: Der Schmerz wird von HR-Verantwortlichen <strong>aktiv als Problem formuliert</strong>, nicht nur passiv ertragen. Konkrete Zitate aus dem Beratungskontext:</p>
+        <ul style="margin-top:.8rem">
+          <li>"Wir können nicht jedes Mal Schauspieler buchen, das sprengt das Budget."</li>
+          <li>"Die Vergleichbarkeit ist problematisch, weil jeder Schauspieler anders agiert."</li>
+          <li>"Wir würden ein digitales Tool sofort testen, wenn die Qualität stimmt."</li>
+        </ul>
+      </div>
+      <div class="insight-block" style="margin-bottom:0">
+        <h3 style="color:var(--p-col)">Warum das Problem Kaufentscheidungen treibt</h3>
+        <p>Das Problem sitzt auf dem <strong>kritischen Pfad einer Führungskräfte-Besetzung</strong>. Unternehmen können Stellen nicht besetzen, ohne diesen Schritt zu durchlaufen. Es ist kein "nice to have"-Problem, sondern ein Prozess-Blocker. Die Alternative ist:</p>
+        <ul style="margin-top:.8rem">
+          <li>Weiterhin teure Schauspieler buchen (Status Quo)</li>
+          <li>Interne Mitarbeiter als Rollenspieler einsetzen (Qualitätsverlust)</li>
+          <li>Das Rollenspiel ganz weglassen (Selektionsrisiko steigt)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     U — URGENCY
+════════════════════════════════════════════ -->
+<section class="pull-section" id="urgency">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="big-letter" style="color:var(--u-col)">U</div>
+      <div class="section-meta">
+        <div class="section-tag" style="color:var(--u-col)">Urgency</div>
+        <div class="section-title">Warum genau jetzt?</div>
+        <div class="section-question">Welche Marktveränderungen machen dieses Timing einzigartig gut?</div>
+        <div class="verdict verdict-strong">✓ 3 konvergierende Tailwinds in 2025/26</div>
+      </div>
+    </div>
+
+    <div class="evidence-grid">
+      <div class="ev-card">
+        <div class="ev-card-header">
+          <span class="ev-num" style="color:var(--u-col)">2024</span>
+          <span class="ev-label">Voice-AI-Durchbruch<br/>ElevenLabs, OpenAI Voice,<br/>Hume AI</span>
+        </div>
+        <p>Erst seit 2024 ist konversationale KI mit <strong>menschenähnlicher Latenz (&lt;500ms) und emotionaler Sprachausgabe</strong> als API verfügbar. Davor wäre ein realistisches Gesprächsszenario technisch nicht umsetzbar gewesen. Das Timing ist technologisch optimal.</p>
+      </div>
+      <div class="ev-card">
+        <div class="ev-card-header">
+          <span class="ev-num" style="color:var(--u-col)">2026</span>
+          <span class="ev-label">EU AI Act<br/>Hochrisiko-Anforderungen<br/>für HR-KI treten in Kraft</span>
+        </div>
+        <p>Der EU AI Act klassifiziert KI in der Personalauswahl als <strong>Hochrisiko-Anwendung</strong>. Bestehende Wettbewerber (HireVue, Retorio) geraten unter Druck. Unsere Architektur ist compliant by design: Mensch entscheidet, KI unterstützt, vollständige Nachvollziehbarkeit.</p>
+      </div>
+      <div class="ev-card">
+        <div class="ev-card-header">
+          <span class="ev-num" style="color:var(--u-col)">43%</span>
+          <span class="ev-label">CFOs planen<br/>HR-Kosten in 2025<br/>zu reduzieren (Gartner)</span>
+        </div>
+        <p>Economic pressure auf HR-Budgets ist real. Gleichzeitig steigen Anforderungen an Selektionsqualität durch wachsenden Talentmangel. <strong>Cost-efficient AND quality-improving</strong> ist das einzige Argument, das jetzt zieht. RoleIQ liefert genau das.</p>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <h3 style="color:var(--u-col)">Das konvergierende Fenster</h3>
+      <p>Drei Kräfte konvergieren gleichzeitig, was ein <strong>zeitlich begrenztes Marktfenster</strong> erzeugt:</p>
+      <ul>
+        <li><strong>Technologie gerade reif:</strong> Voice AI gut genug. Vor 2024 war das nicht der Fall. In 2027 könnte der Markt schon besetzt sein.</li>
+        <li><strong>Regulierung schafft Nachfrage:</strong> EU AI Act zwingt Unternehmen, ihre Selektionstools zu überprüfen. Viele werden wechseln müssen. Wir sind positioned als die konforme Alternative.</li>
+        <li><strong>Remote-first Normalität:</strong> Post-COVID ist digitales Assessment für Kandidaten akzeptiert. Das Onboarding-Argument ("das wirkt unpersönlich") ist weggefallen.</li>
+      </ul>
+    </div>
+
+    <div class="two-col">
+      <div class="insight-block" style="margin-bottom:0">
+        <h3 style="color:var(--u-col)">Regulatorischer Rückenwind</h3>
+        <p>Der EU AI Act (Art. 6, Annex III) listet "recruitment and selection of natural persons" explizit als Hochrisiko. Das bedeutet:</p>
+        <ul style="margin-top:.6rem">
+          <li>Transparenz-Anforderungen an KI-Systeme in HR</li>
+          <li>Menschliche Aufsicht und finale Entscheidung Pflicht</li>
+          <li>Logging und Auditierbarkeit verpflichtend</li>
+        </ul>
+        <p style="margin-top:.8rem">RoleIQ ist <strong>compliant by architecture</strong>. Wettbewerber wie HireVue sind es teils nicht.</p>
+      </div>
+      <div class="insight-block" style="margin-bottom:0">
+        <h3 style="color:var(--u-col)">Warum nicht warten?</h3>
+        <p>Je länger wir warten, desto mehr Zeit haben:</p>
+        <ul style="margin-top:.6rem">
+          <li>US-Player wie Second Nature, den Markt auf Europa auszuweiten</li>
+          <li>Bestehende AC-Anbieter (SHL, Korn Ferry), eigene KI-Layer zu bauen</li>
+          <li>Das Marktfenster der regulatorischen Unsicherheit zu schließen</li>
+        </ul>
+        <p style="margin-top:.8rem">First-mover advantage in einem sich schnell konsolidierenden Markt ist real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     L — LANDSCAPE
+════════════════════════════════════════════ -->
+<section class="pull-section" id="landscape">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="big-letter" style="color:var(--l1-col)">L</div>
+      <div class="section-meta">
+        <div class="section-tag" style="color:var(--l1-col)">Landscape</div>
+        <div class="section-title">Wer löst das Problem sonst, und wie sind wir differenziert?</div>
+        <div class="section-question">Gibt es einen klaren White Space, oder kämpfen wir gegen etablierte Player?</div>
+        <div class="verdict verdict-strong">✓ Echter White Space identifiziert</div>
+      </div>
+    </div>
+
+    <div class="insight-block" style="margin-bottom:2rem">
+      <h3 style="color:var(--l1-col)">Die Wettbewerbsmatrix</h3>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Anbieter</th>
+            <th>Kategorie</th>
+            <th>Roleplay?</th>
+            <th>Selektion?</th>
+            <th>KI-Avatar?</th>
+            <th>EU-AI-Act konform?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-us">
+            <td>RoleIQ</td>
+            <td>KI-Rollenspiel für Selektion</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-yes">✓ by design</td>
+          </tr>
+          <tr>
+            <td>GrowInTheRole</td>
+            <td>KI-Rollenspiel für Training</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-no">✗ Training only</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-partial">~ unklar</td>
+          </tr>
+          <tr>
+            <td>Second Nature</td>
+            <td>KI-Roleplay für Sales-Training</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-no">✗ Training only</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-partial">~ (US-fokussiert)</td>
+          </tr>
+          <tr>
+            <td>HireVue</td>
+            <td>Video-Interview-KI</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-no">✗ unter Druck</td>
+          </tr>
+          <tr>
+            <td>Pymetrics / Harver</td>
+            <td>Gamified Assessments</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-partial">~</td>
+          </tr>
+          <tr>
+            <td>SHL / Korn Ferry</td>
+            <td>Klassisches AC / Psychometrie</td>
+            <td class="tag-partial">Mensch</td>
+            <td class="tag-yes">✓</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-yes">✓</td>
+          </tr>
+          <tr>
+            <td>Retorio</td>
+            <td>KI-Video-Coaching</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-partial">~</td>
+            <td class="tag-no">✗</td>
+            <td class="tag-no">✗ Sentiment-Tracking</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="insight-block" style="margin-bottom:0">
+        <h3 style="color:var(--l1-col)">Der White Space</h3>
+        <p>Die Überschneidung aus <strong>drei Anforderungen</strong> besetzt niemand:</p>
+        <ul style="margin-top:.6rem">
+          <li>KI-gesteuertes Rollenspiel-Gespräch (nicht Video, nicht Games)</li>
+          <li>Explizit für Selektion (nicht Training)</li>
+          <li>Mit Kompetenzframework-Integration und auditfähigem HR-Report</li>
+        </ul>
+        <p style="margin-top:.8rem">GrowInTheRole und Second Nature trainieren. SHL selektiert ohne KI-Roleplay. <strong>Niemand macht beides.</strong></p>
+      </div>
+      <div class="insight-block" style="margin-bottom:0">
+        <h3 style="color:var(--l1-col)">Markgröße</h3>
+        <p>Talent Assessment Market (global):</p>
+        <ul style="margin-top:.6rem">
+          <li><strong>$7.2 Mrd.</strong> Gesamtmarkt 2024, wächst mit ~7% p.a.</li>
+          <li><strong>Rollenspiel-spezifisches AC</strong> als Teilmarkt: geschätzt $800M-1.2B DACH + Westeuropa</li>
+          <li>Unser initialer ICP: Unternehmen ab 500 MA mit Inhouse-HR, DACH-Fokus</li>
+        </ul>
+        <p style="margin-top:.8rem">Initial adressierbarer Markt (SAM): ~15.000 Unternehmen in DACH, die regelmäßig externe AC-Dienstleister beauftragen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     L — LEVERAGE
+════════════════════════════════════════════ -->
+<section class="pull-section" id="leverage">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="big-letter" style="color:var(--l2-col)">L</div>
+      <div class="section-meta">
+        <div class="section-tag" style="color:var(--l2-col)">Leverage</div>
+        <div class="section-title">Was ist unser unfairer Vorteil?</div>
+        <div class="section-question">Warum gewinnen wir diesen Markt, und nicht jemand anderes?</div>
+        <div class="verdict verdict-strong">✓ 4 strukturelle Moats identifiziert</div>
+      </div>
+    </div>
+
+    <div class="moat-grid" style="margin-bottom:2rem">
+      <div class="moat-card" style="border-top-color:var(--l2-col)">
+        <div class="mc-icon">🧠</div>
+        <h4>Domain Expertise</h4>
+        <p>Sophias Hintergrund in psychologischer Diagnostik und AC-Methodik gibt uns einen Graben, den ein rein technisches Team nicht überspringen kann. Wir verstehen, was ein valides Selektionsinstrument ausmacht.</p>
+      </div>
+      <div class="moat-card" style="border-top-color:var(--l2-col)">
+        <div class="mc-icon">🎲</div>
+        <h4>Non-Determinismus als Moat</h4>
+        <p>Das System ist bewusst nicht-deterministisch. Es gibt keine optimale Antwort zum Auswendiglernen. Das verhindert Coaching-Effekte und macht RoleIQ als Selektionsinstrument belastbarer als jedes skriptbasierte System.</p>
+      </div>
+      <div class="moat-card" style="border-top-color:var(--l2-col)">
+        <div class="mc-icon">⚖️</div>
+        <h4>Compliance by Design</h4>
+        <p>Wir bauen EU AI Act Konformität von Anfang an ein: Mensch trifft finale Entscheidung, KI dokumentiert transparent. Wettbewerber müssen das nachrüsten. Wir haben es von Beginn an.</p>
+      </div>
+      <div class="moat-card" style="border-top-color:var(--l2-col)">
+        <div class="mc-icon">🔗</div>
+        <h4>Switching Costs</h4>
+        <p>Sobald ein Unternehmen sein Kompetenzsystem (Verhaltenskatalog) einmal integriert hat, ist der Wechsel zu einem Wettbewerber aufwendig. Das schafft organische Kundenbindung ab dem ersten Enterprise-Deal.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="insight-block" style="margin-bottom:1.5rem">
+        <h3 style="color:var(--l2-col)">Go-to-Market Leverage</h3>
+        <p>Unser initialer Distributions-Vorteil:</p>
+        <ul style="margin-top:.6rem">
+          <li><strong>CDTM-Netzwerk:</strong> Direktzugang zu Corporate-Partnern und HR-Entscheidern über das CDTM-Ökosystem. Warmer Intro-Path statt Cold Outreach.</li>
+          <li><strong>HR-Consulting Pivot:</strong> Beratungen wie FEEDBACKPEOPLE als Channel Partner, die RoleIQ in ihre bestehenden AC-Engagements integrieren.</li>
+          <li><strong>Proof-of-concept erster:</strong> Einer frühen Validierungsstudie mit einem Unternehmenspartner schafft referenzierbare Daten.</li>
+        </ul>
+      </div>
+      <div class="insight-block" style="margin-bottom:1.5rem">
+        <h3 style="color:var(--l2-col)">Business Model Leverage</h3>
+        <p>Hybrides Pricing schafft Planbarkeit für uns und Fairness für Kunden:</p>
+        <ul style="margin-top:.6rem">
+          <li><strong>Plattform-Grundgebühr:</strong> €500-2.000/Monat je nach Unternehmensgröße. Stabile ARR-Basis.</li>
+          <li><strong>Token-System:</strong> 1 Token = 1 Assessment-Gespräch inkl. Auswertung. Pre-Screening: 1 Token. AC-Simulation (45 Min.): 3 Token.</li>
+          <li><strong>Custom Scenarios:</strong> Einmalige Setup-Fee für unternehmensindividuelle Szenarien.</li>
+        </ul>
+        <p style="margin-top:.8rem">Bei €75 pro Token und 200 Kandidaten pro Jahr: <strong>€15.000 Jahresumsatz pro Enterprise-Kunde</strong> allein aus Tokens.</p>
+      </div>
+    </div>
+
+    <!-- Now / Next -->
+    <div class="insight-block">
+      <h3 style="color:var(--l2-col)">Leverage-Roadmap: Jetzt und als Nächstes</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.4);color:#A78BFA">1</div>
+          <div class="tl-content">
+            <h4>Validierung (jetzt)</h4>
+            <p>Pilot mit 1-2 Unternehmenspartnern aus dem CDTM-Netzwerk. Ziel: 20+ Kandidaten durch den Prozess, Feedback von HR-Entscheidern, erster Beweis für Akzeptanz und Qualität.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.4);color:#A78BFA">2</div>
+          <div class="tl-content">
+            <h4>Erstes LOI / Pilotvertrag</h4>
+            <p>Letter of Intent von einem zahlenden Unternehmenskunden als proof of willingness to pay. Realistisches Ziel: €3.000-8.000 für einen 3-Monats-Pilot mit 50 Assessments.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.4);color:#A78BFA">3</div>
+          <div class="tl-content">
+            <h4>Wissenschaftliche Validierung</h4>
+            <p>Zusammenarbeit mit einer Uni (LMU/TUM Psychologie) zur Validierung des Assessment-Instruments. Prä-Post-Studie, Vergleich mit klassischem Rollenspiel. Schafft Glaubwürdigkeit für Enterprise-Sales.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.4);color:#A78BFA">4</div>
+          <div class="tl-content">
+            <h4>Scale via HR-Consulting Channel</h4>
+            <p>HR-Beratungen als Multiplikatoren. Jede Beratung bringt mehrere Unternehmenskunden mit. Provisionierung bei vermittelten Kunden. Kein direkter Sales-Aufwand pro Endkunde nötig.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<div class="summary-bar">
+  <div class="summary-inner">
+    <h2>PULL-Gesamtbewertung: RoleIQ</h2>
+    <p>Das PULL-Framework zeigt klares Marktpotenzial an drei von vier Dimensionen. Das Produkt löst ein real schmerzhaftes, frequentes Problem zu einem technologisch optimalen Zeitpunkt, mit einem klaren White Space und strukturellen Vorteilen gegenüber möglichen Wettbewerbern.</p>
+    <div class="summary-grid">
+      <div class="summary-pill" style="border-color:rgba(248,113,113,.3)">
+        <div class="sl" style="color:#F87171">P</div>
+        <div class="sd">Stark</div>
+      </div>
+      <div class="summary-pill" style="border-color:rgba(251,191,36,.3)">
+        <div class="sl" style="color:#FBBF24">U</div>
+        <div class="sd">Sehr stark</div>
+      </div>
+      <div class="summary-pill" style="border-color:rgba(52,211,153,.3)">
+        <div class="sl" style="color:#34D399">L</div>
+        <div class="sd">Klarer Vorteil</div>
+      </div>
+      <div class="summary-pill" style="border-color:rgba(167,139,250,.3)">
+        <div class="sl" style="color:#A78BFA">L</div>
+        <div class="sd">Aufbaubar</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
